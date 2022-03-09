@@ -5,5 +5,5 @@ Starter template for remix applications
 #### Getting started
 
 ```bash
-pnpm dlx degit upro-remix veritem/upro-remix <project-name>
+pnpm dlx degit veritem/upro-remix <project-name>
 ```
