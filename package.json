@@ -2,7 +2,8 @@
     "private": true,
     "name": "remix-app-template",
     "description": "",
-    "license": "",
+    "license": "MIT",
+    "author": "Makuza Mugabo Verite <https://veritem.me/>",
     "scripts": {
         "build": "npm run build:css && remix build",
         "build:css": "tailwindcss -i ./app/styles/tailwind.css  -o ./app/tailwind.css --minify",
