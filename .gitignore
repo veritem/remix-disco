@@ -5,3 +5,4 @@ node_modules
 /app/.tailwind.css
 /app/tailwind.css
 /api/build
+/app/styles/tailwind.css
