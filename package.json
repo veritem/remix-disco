@@ -27,17 +27,17 @@
     "typecheck": "tsc -b && tsc -b cypress"
   },
   "dependencies": {
-    "@remix-run/react": "^1.3.1",
-    "@remix-run/serve": "^1.3.1",
-    "@remix-run/vercel": "^1.3.1",
+    "@remix-run/react": "*",
+    "@remix-run/serve": "*",
+    "@remix-run/vercel": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.3.1"
+    "remix": "*"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.3.1",
-    "@remix-run/eslint-config": "^1.3.1",
-    "@remix-run/node": "^1.3.1",
+    "@remix-run/dev": "*",
+    "@remix-run/eslint-config": "*",
+    "@remix-run/node": "*",
     "@testing-library/cypress": "^8.0.2",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
