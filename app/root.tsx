@@ -1,5 +1,6 @@
 import { Links, LiveReload, Meta, Outlet, Scripts, useCatch } from 'remix'
 import styles from './styles/tailwind.css'
+import { Toaster } from "react-hot-toast"
 
 export function links() {
     return [{ rel: 'stylesheet', href: styles }]
@@ -8,6 +9,7 @@ export function links() {
 export default function App() {
     return (
         <Document>
+            <Toaster />
             <Outlet />
         </Document>
     )

@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Form, Link } from "remix";
 
 export default function Nav() {
     return (
@@ -9,13 +9,15 @@ export default function Nav() {
             <div>
                 <ul className="flex  gap-4">
                     <li>
-                        <Link to="/vehicles">Home</Link>
+                        <Link to="/vehicles">Vehicles</Link>
                     </li>
                     <li>
                         <Link to="/owners">Owners</Link>
                     </li>
                     <li>
-                        <Link to="/logout">Logout</Link>
+                        <Form action="/logout" method="post">
+                            <button>Logout</button>
+                        </Form>
                     </li>
                 </ul>
             </div>

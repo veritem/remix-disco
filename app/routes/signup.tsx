@@ -1,4 +1,6 @@
-import { ActionFunction, Form, json, MetaFunction } from 'remix'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
+import { ActionFunction, Form, json, Link, MetaFunction, redirect, useActionData } from 'remix'
 import * as Z from "zod"
 import { validateAction } from '~/utils/validation'
 
@@ -28,17 +30,46 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     // fetch backend api to signin
+    const signupReq = await fetch("http://localhost:4000/auth/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+    })
 
-    return null
+    if (!signupReq.ok) {
+        return json({ email: (await signupReq.json()).message }, { status: 400 })
+    }
+
+
+    return redirect("/signin")
 }
 
 
 
 
-export default function signup() {
+export default function Signup() {
+
+    const data = useActionData()
+
+    useEffect(() => {
+        if (data?.errors?.email) {
+            toast.error(data.errors?.email)
+        } else if (data?.errors?.password) {
+            toast.error(data?.errors?.password)
+        } else if (data?.errors.names) {
+            toast.error(data?.errors?.names)
+        } else if (data?.errors.phone) {
+            toast.error(data?.errors?.phone)
+        } else if (data?.errors.nationalId) {
+            toast.error("National id " + data?.errors.nationalId)
+        }
+    }, [data])
+
     return (
-        <section className="flex justify-center items-center w-screen h-screen">
-            <Form className="w-[25rem] flex flex-col gap-5">
+        <section className="flex justify-center items-center w-screen h-screen flex-col gap-3">
+            <Form className="w-[25rem] flex flex-col gap-5" method="post">
 
                 <div className="flex flex-col">
                     <label htmlFor="names">Names</label>
@@ -57,7 +88,7 @@ export default function signup() {
 
                 <div className="flex flex-col">
                     <label htmlFor="nationalId">National Id</label>
-                    <input type="text" id="nationalId" name="nationalId" />
+                    <input type="text" id="nationalId" name="nationalId" min={16} max={16} />
                 </div>
 
                 <div className="flex flex-col">
@@ -66,6 +97,7 @@ export default function signup() {
                 </div>
                 <button className="bg-blue-500 py-3 text-white">Sigin</button>
             </Form>
+            <p>Have an account? <Link to="/signin" className="text-blue-500">signin</Link></p>
         </section>
     )
 }
