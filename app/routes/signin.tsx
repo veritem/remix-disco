@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { ActionFunction, Form, json, Link, MetaFunction, useActionData } from 'remix'
-import * as Z from "zod"
+//import { ActionFunction, Form, json, Link, MetaFunction, useActionData } from 'remix'
+import * as Z from 'zod'
 import { createUserSession } from '~/utils/session.user'
 import { validateAction } from '~/utils/validation'
 
@@ -12,30 +12,34 @@ const schema = Z.object({
 
 type ActionInput = Z.TypeOf<typeof schema>
 
-
 export const action: ActionFunction = async ({ request }) => {
-    const { formData, errors } = await validateAction<ActionInput>({ request, schema })
+    const { formData, errors } = await validateAction<ActionInput>({
+        request,
+        schema,
+    })
 
     if (errors) {
         return json({ errors }, { status: 400 })
     }
 
-    const signupReq = await fetch("http://localhost:4000/auth/signin", {
-        method: "POST",
+    const signupReq = await fetch('http://localhost:4000/auth/signin', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
     })
 
     const signupRes = await signupReq.json()
 
-
     if (signupRes?.access_token) {
         console.log(signupRes.access_token)
-        return createUserSession(signupRes.access_token, "/dashboard")
+        return createUserSession(signupRes.access_token, '/dashboard')
     } else {
-        return json({ errors: { email: "Invalid email or password" } }, { status: 400 })
+        return json(
+            { errors: { email: 'Invalid email or password' } },
+            { status: 400 }
+        )
     }
 
     return null
@@ -43,14 +47,12 @@ export const action: ActionFunction = async ({ request }) => {
 
 export const meta: MetaFunction = () => {
     return {
-        title: "siginin"
+        title: 'siginin',
     }
 }
 
 export default function Signup() {
-
     const data = useActionData()
-
 
     useEffect(() => {
         if (data?.errors.email) {
@@ -74,8 +76,12 @@ export default function Signup() {
                 </div>
                 <button className="bg-blue-500 py-3 text-white">Sigin</button>
             </Form>
-            <p>Don't have an account? <Link to="/signup" className="text-blue-500">signup</Link></p>
+            <p>
+                Don't have an account?{' '}
+                <Link to="/signup" className="text-blue-500">
+                    signup
+                </Link>
+            </p>
         </section>
-
     )
 }
