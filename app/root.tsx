@@ -1,87 +1,136 @@
-import { Links, LiveReload, Meta, Outlet, Scripts } from '@remix-run/react'
-import styles from './styles/tailwind.css'
-import rdtStylesheet from 'remix-development-tools/stylesheet.css'
-import { RemixDevTools } from 'remix-development-tools'
-import { Toaster } from 'react-hot-toast'
+//import { Links, LiveReload, Meta, Outlet, Scripts } from '@remix-run/react'
+//import styles from './styles/tailwind.css'
+//import { Toaster } from 'react-hot-toast'
 
-export function links() {
-    return [
-        { rel: 'stylesheet', href: styles },
-        ...(rdtStylesheet ? [{ rel: 'stylesheet', href: rdtStylesheet }] : []),
-    ]
-}
+//export function links() {
+//    return [
+//        { rel: 'stylesheet', href: styles },
+//        ...(rdtStylesheet ? [{ rel: 'stylesheet', href: rdtStylesheet }] : []),
+//    ]
+//}
 
-export default function App() {
-    return (
-        <Document>
-            <Toaster />
-            <Outlet />
-            <RemixDevTools />
-        </Document>
-    )
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
-    console.error(error)
-    return (
-        <Document title="Error!">
-            <div>
-                <h1>There was an error</h1>
-                <p>{error.message}</p>
-                <hr />
-                <p>
-                    Hey, developer, you should replace this with what you want
-                    your users to see.
-                </p>
-            </div>
-        </Document>
-    )
-}
-
-//export function CatchBoundary() {
-//    let caught = useCatch()
-
-//    let message
-
-//    switch (caught.status) {
-//        case 401:
-//            message = (
-//                <p>
-//                    Oops! Looks like you tried to visit a page that you do not
-//                    have access to.
-//                </p>
-//            )
-//            break
-//        case 404:
-//            message = (
-//                <p>
-//                    Oops! Looks like you tried to visit a page that does not
-//                    exist.
-//                </p>
-//            )
-//            break
-
-//        default:
-//            throw new Error(caught.data || caught.statusText)
-//    }
-
+//export default function App() {
 //    return (
-//        <Document title={`${caught.status} ${caught.statusText}`}>
-//            <h1>
-//                {caught.status}: {caught.statusText}
-//            </h1>
-//            <div>{message}</div>
+//        <Document>
+//            <Toaster />
+//            <Outlet />
+//            <RemixDevTools />
 //        </Document>
 //    )
 //}
 
-function Document({
-    children,
-    title,
-}: {
-    children: React.ReactNode
-    title?: string
-}) {
+//export function ErrorBoundary({ error }: { error: Error }) {
+//    console.error(error)
+//    return (
+//        <Document title="Error!">
+//            <div>
+//                <h1>There was an error</h1>
+//                <p>{error.message}</p>
+//                <hr />
+//                <p>
+//                    Hey, developer, you should replace this with what you want
+//                    your users to see.
+//                </p>
+//            </div>
+//        </Document>
+//    )
+//}
+
+////export function CatchBoundary() {
+////    let caught = useCatch()
+
+////    let message
+
+////    switch (caught.status) {
+////        case 401:
+////            message = (
+////                <p>
+////                    Oops! Looks like you tried to visit a page that you do not
+////                    have access to.
+////                </p>
+////            )
+////            break
+////        case 404:
+////            message = (
+////                <p>
+////                    Oops! Looks like you tried to visit a page that does not
+////                    exist.
+////                </p>
+////            )
+////            break
+
+////        default:
+////            throw new Error(caught.data || caught.statusText)
+////    }
+
+////    return (
+////        <Document title={`${caught.status} ${caught.statusText}`}>
+////            <h1>
+////                {caught.status}: {caught.statusText}
+////            </h1>
+////            <div>{message}</div>
+////        </Document>
+////    )
+////}
+
+//function Document({
+//    children,
+//    title,
+//}: {
+//    children: React.ReactNode
+//    title?: string
+//}) {
+//    return (
+//        <html lang="en">
+//            <head>
+//                <meta charSet="utf-8" />
+//                <meta
+//                    name="viewport"
+//                    content="width=device-width,initial-scale=1"
+//                />
+//                {title ? <title>{title}</title> : null}
+//                <Meta />
+//                <Links />
+//            </head>
+//            <body>
+//                {children}
+//                <Scripts />
+//                {process.env.NODE_ENV === 'development' && <LiveReload />}
+//            </body>
+//        </html>
+//    )
+//}
+
+import type { LoaderArgs } from '@remix-run/node'
+import { json, type ActionArgs, type LinksFunction } from '@remix-run/node'
+import {
+    Links,
+    LiveReload,
+    Meta,
+    Outlet,
+    Scripts,
+    ScrollRestoration,
+} from '@remix-run/react'
+import rdtStylesheet from 'remix-development-tools/stylesheet.css'
+import { RemixDevTools } from 'remix-development-tools'
+
+export const links: LinksFunction = () => [
+    ...(rdtStylesheet ? [{ rel: 'stylesheet', href: rdtStylesheet }] : []),
+]
+export const loader = ({ request }: LoaderArgs) => {
+    return json({
+        message: 'Hello root World!',
+    })
+}
+
+export const handle = {
+    test: 'test',
+}
+
+export const action = async ({ request }: ActionArgs) => {
+    return json({ data: 'returned yay' })
+}
+export default function App() {
     return (
         <html lang="en">
             <head>
@@ -90,14 +139,15 @@ function Document({
                     name="viewport"
                     content="width=device-width,initial-scale=1"
                 />
-                {title ? <title>{title}</title> : null}
                 <Meta />
                 <Links />
             </head>
             <body>
-                {children}
+                <Outlet />
+                <ScrollRestoration />
                 <Scripts />
-                {process.env.NODE_ENV === 'development' && <LiveReload />}
+                <LiveReload />
+                <RemixDevTools />
             </body>
         </html>
     )
