@@ -13,7 +13,6 @@
 		"dev:remix": "remix dev",
 		"format": "prettier --write .",
 		"generate:css": "tailwindcss -o ./app/styles/tailwind.css",
-		"postinstall": "remix setup node",
 		"setup": "run-s setup:db setup:app",
 		"setup:app": "run-p \"test -- --run\" lint typecheck test:e2e:run",
 		"setup:db": "prisma migrate dev",
@@ -27,14 +26,15 @@
 		"lint": "eslint --cache --cache-location ./node_modules/.cache/eslint ."
 	},
 	"dependencies": {
+		"@remix-run/node": "^1.17.1",
 		"@remix-run/react": "^1.17.1",
 		"@remix-run/serve": "^1.17.1",
 		"@remix-run/vercel": "^1.17.1",
 		"isbot": "^3.6.12",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.14.1",
-		"remix": "^1.17.1"
+		"react-hot-toast": "^2.4.1",
+		"react-router-dom": "^6.14.1"
 	},
 	"devDependencies": {
 		"@remix-run/dev": "^1.17.1",

@@ -1,11 +1,8 @@
 import { Links, LiveReload, Meta, Outlet, Scripts } from '@remix-run/react'
 import styles from './styles/tailwind.css'
-<<<<<<< HEAD
 import rdtStylesheet from 'remix-development-tools/stylesheet.css'
 import { RemixDevTools } from 'remix-development-tools'
-=======
-import { Toaster } from "react-hot-toast"
->>>>>>> origin/main
+import { Toaster } from 'react-hot-toast'
 
 export function links() {
     return [
