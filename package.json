@@ -3,7 +3,7 @@
 	"name": "remix-app-template",
 	"description": "",
 	"license": "MIT",
-	"author": "Makuza Mugabo Verite <https://veritem.me/>",
+	"author": "Makuza Mugabo Verite <https://veritemugabo.com/>",
 	"scripts": {
 		"build": "run-s build:*",
 		"build:css": "npm run generate:css -- --minify",

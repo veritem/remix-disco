@@ -3,7 +3,7 @@ import { Link } from 'remix'
 
 export let meta: MetaFunction = () => {
     return {
-        title: 'Remix Starter',
+        title: 'Vehicle management applications',
         description: 'Welcome to remix!',
     }
 }
